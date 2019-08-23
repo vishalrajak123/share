@@ -1,0 +1,13 @@
+request.form.get("symbol"){% extends "layout.html" %}
+
+{% block title %}
+    quoted
+{% endblock %}
+
+{% block main %}
+    <form action="/quoted" method="post">
+        <p>
+            share {{name}} {{symbol}} costs {{price}}
+        </p>
+    </form>
+{% endblock %}
