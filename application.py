@@ -160,45 +160,37 @@ def quote():
 @app.route("/register", methods=["GET", "POST"])
 def register():
     """Register user"""
-
-    # User reached route via POST (as by submitting a form via POST)
-    if request.method == "POST":
-
-        # Ensure username was submitted
+    session.clear()
+    if request.method=="POST":
         if not request.form.get("username"):
-            return apology("must provide username", 400)
-
-        # Ensure password was submitted
+            return apology("username not found")
         elif not request.form.get("password"):
-            return apology("must provide password", 400)
+            return apology("password not found")
+        elif request.form.get("password")!=request.form.get("confirm_password"):
+            return apology("password doesnot match")
 
-        # Ensure password and confirmation match
-        elif not request.form.get("password") == request.form.get("confirmation"):
-            return apology("passwords do not match", 400)
+        hash = generate_password_hash(request.form.get("password"), method='pbkdf2:sha256', salt_length=8)
+        result=db.execute("INSERT INTO users (username, hash) VALUES(:username, :hash)", username=request.form.get("username"), hash = hash)
+        if not result:
+            return apology("username taken")
+        else:
+            return apology("username availavle",200)
 
-        # hash the password and insert a new user in the database
-        hash = generate_password_hash(request.form.get("password"))
-        new_user_id = db.execute("INSERT INTO users (username, hash) VALUES(:username, :hash)",
-                                 username=request.form.get("username"),
-                                 hash=hash)
+        rows = db.execute("SELECT * FROM users WHERE username = :username", username=request.form.get("username"))
 
-        # unique username constraint violated?
-        if not new_user_id:
-            return apology("username taken", 400)
+        # Ensure username exists and password is correct
+        if len(rows) != 1 or not check_password_hash(rows[0]["hash"], request.form.get("password")):
+            return apology("invalid username and/or password", 403)
 
         # Remember which user has logged in
-        session["user_id"] = new_user_id
-
-        # Display a flash message
-        flash("Registered!")
+        session["user_id"] = rows[0]["id"]
 
         # Redirect user to home page
-        return redirect(url_for("index"))
+        return redirect("/")
 
-    # User reached route via GET (as by clicking a link or via redirect)
     else:
         return render_template("register.html")
-
+    return apology("TODo")
 
 @app.route("/sell", methods=["GET", "POST"])
 @login_required
