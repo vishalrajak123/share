@@ -208,10 +208,10 @@ def sell():
         if  quote==None:
 
             return apology("invalid symbol")
-        share=request.form.get("share")
-        price=quote["price"][0]
+        share=int(request.form.get("share"))
+        price=quote["price"]
         cash_increase=price*share
-        db.execute("UPDATE users SET cash=cash+:cash_increase WHERE id=:id",cash_increase=request.get.form("cash_increase"))
+        db.execute("UPDATE users SET cash=cash+:cash_increase WHERE id=:id",cash_increase=request.form.get("cash_increase"),id=session["user_id"])
     else:
         return render_template("sell.html")
 def errorhandler(e):
