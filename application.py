@@ -174,6 +174,8 @@ def register():
         result=db.execute("INSERT INTO users (username, hash) VALUES(:username, :hash)", username=request.form.get("username"), hash = hash)
         if not result:
             return apology("username taken")
+        else:
+            return apology("username availavle",200)
 
         rows = db.execute("SELECT * FROM users WHERE username = :username", username=request.form.get("username"))
 
