@@ -186,7 +186,7 @@ def register():
         session["user_id"] = rows[0]["id"]
 
         # Redirect user to home page
-        return redirect("/")
+        return redirect("/",200)
 
     else:
         return render_template("register.html")
