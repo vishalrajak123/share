@@ -1,2 +1,2 @@
 # rijusougata13
-downloadc the file 
+download the file 
