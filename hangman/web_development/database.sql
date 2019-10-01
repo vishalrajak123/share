@@ -1,0 +1,5 @@
+CREATE TABLE web(
+id SERIAL PRIMARY KEY,
+origin VARCHAR NON NULL,
+destination VARChAR NON NULL,
+duration INTEGER NON NULL);
