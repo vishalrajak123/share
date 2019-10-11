@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Very epic vue.js</title>
+  <script src="https://unpkg.com/vue"></script>
+  <style>.notEpic{background-color:coral;} .virus{color:red;} .notVirus{color:green;}</style>
+<style id="jsbin-css">
+* {
+  font-family: Arial;
+}
+</style>
+</head>
+  <body>
+    <div id="shopping-list">
+      <h1>{{ header.toLocaleUpperCase() }}</h1>
+      <button class="btn-primary" v-if="state==='default'"@click="changeState('edit')">Add item</button>
+      <button class="btn-cancel" v-if="state==='edit'" @click="changeState('default')">give up</button>
+      <ul>
+        <li v-for="item in reversedItems" v-bind:class="{notEpic: !item.stillCool}" @click="toggleGarbage(item)">{{ item.thing }}</li>
+      </ul>
+      <p>{{itemCount}} things.</p>
+      <p v-if="items.length === 0"><i>Nothing is epic :(</i></p>
+      <h2>--LONks--</h2>
+      <ul>
+        <li v-for="lonk in links"><a v-bind:href="lonk[1]" v-bind:class="[lonk[2] ? 'virus' : 'notVirus', !lonk[3] ? 'notEpic' : '']">{{ lonk[0] }}</a></li>
+      </ul>
+
+      <div id="form" v-if="state==='edit'"><input v-model="newItem" @keyup.enter="saveItem"/> <button class="btn btn-primary" v-bind:disabled="newItem.length === 0" v-on:click="saveItem">very epic</button></div>
+    </div>
+
+    <script defer>
+      var shoppingList = new Vue({
+        el: "#shopping-list",
+        data: {
+          state: "default",
+          header: "List of very epic things",
+          newItem: '',
+          items: [
+            {
+              "thing": "Fortnite",
+              "stillCool": false
+            },
+            {
+              "thing": "Marques Brownlee",
+              "stillCool": true
+            }
+          ],
+          links: [
+            ["Google :(", "https://google.com", true, false],
+            ["Ecosia :D", "https://ecosia.org", false, true]
+          ]
+        },
+        computed: {
+          itemCount() {
+            return this.items.length;
+          },
+          reversedItems() {
+            return this.items.slice(0).reverse()
+          }
+        },
+        methods: {
+          saveItem: function () {
+            this.items.push(
+              {
+                "thing": this.newItem,
+                "stillCool": true
+              });
+            this.newItem = "";
+          },
+          changeState: function (state) {
+            this.state = state;
+            this.newItem = "";
+          },
+          toggleGarbage: function (item) {
+            item.stillCool = !item.stillCool
+          }
+        }
+      })
+    </script>
+  <!--boot js--><script id="jsbin-javascript" defer>// console.clear()
+
+</script>
+</body>
+</html>
+
