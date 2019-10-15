@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>result</title>
+  </head>
+  <body>
+<h1>Search Results</h1>
+<div class="dropdown-divider"></div>
+
+<div class="container results-container">
+
+    {% for book in books %}
+        <div class="card border-primary mb-3" style="width: 12rem">
+            <div class="card-body">
+                <h1 class="card-title">the title is --{{book['title']}}</h1>
+                <h3 class="card-text">the author is --{{book['author']}}</h3>
+                <h3 class="card-text">year of the book is--{{book['year']}}</h3>
+                <h3 class="card-text">isbn number--{{book['isbn']}}</h3>
+            </div>
+            <div class="card-footer">
+                <a href="/book/{{book['isbn']}}" class="card-link">Go to book page</a>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+</body>
+</html>
