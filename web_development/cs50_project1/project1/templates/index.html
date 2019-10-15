@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index</title>
+</head>
+<body>
+  <h1>
+    !!welcome to this site!!
+  </h1>
+  <dir color =green>
+    if you are a new user  then click this button
+    <form method="get" action="/register">
+      <button type="submit">go_to_register</button>
+    </form>
+  </dir>
+  <dir color=red>
+    if you already registered go to login page--
+            <form method ="get" action="/login">
+              <button type="submit">go_to_login</button>
+            </form>
+
+  </dir>
+  <!--
+  <dir>
+    if youy wanna logout-----
+    <form action="/logout" method="get">
+      <button type="submit" > logout</button>
+  </dir>
+-->
+  <dir>
+    {{message}}
+  </dir>
+
+  <h1>
+    search books here
+  </h1>
+  <form  action="/search" method="get">
+    <input type="text" name="book" class="form-control" placeholder="title,author,isbn" >
+    <button type="submit" >submit </button>
+  </form>
+</body>
+
+</html>
