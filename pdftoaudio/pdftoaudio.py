@@ -4,7 +4,7 @@ from gtts import gTTS
 import os
 from tkinter import Tk
 from tkinter.filedialog import askopenfilename
-
+print("converting.......")
 Tk().withdraw() # we don't want a full GUI, so keep the root window from appearing
 filename = askopenfilename()
 print(os.path.basename(filename))
@@ -23,3 +23,6 @@ myobj=gTTS(text=p,lang=lang,slow=False)
 myobj.save("audio.mp3")
 #run it
 os.system("mpg321 audio.mp3")
+quit='r'
+while(quit !='q'):
+    quit=input("enter q  to exit:")
