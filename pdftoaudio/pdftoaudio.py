@@ -14,10 +14,13 @@ Tk().withdraw() # we don't want a full GUI, so keep the root window from appeari
 filename = askopenfilename()
 print(os.path.basename(filename))
 #create a file obj and open in read binary mode
+
 with  open(filename,'rb') as pdfFileObj:     #'rb' for read binary mode
     pdfReader = PyPDF2.PdfFileReader(pdfFileObj)
+    pg = pdfReader.getNumPages()
     print((pdfReader.numPages))
-    pageObj = pdfReader.getPage(0)
+    for i in range(pg):
+        pageObj = pdfReader.getPage(i)
     p=pageObj.extractText()
 #close
     pdfFileObj.close()
